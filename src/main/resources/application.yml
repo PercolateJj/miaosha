@@ -1,0 +1,68 @@
+# thymeleaf的前缀和后缀
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    servlet:
+      content-type: text/html
+    enabled: true
+    encoding: UTF-8
+    mode: HTML5
+  # 数据源
+  datasource:
+    # 4个基本参数
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    username: root
+    password: jinjian
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  # redis 配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: jinjian
+    jedis:
+      # 连接池配置
+      pool:
+        # 最大连接数
+        max-active: 10
+        # 最大空闲连接
+        max-idle: 10
+        # 最大阻塞等待时间
+        max-wait: 3
+  #static资源配置
+  resources:
+    add-mappings: true
+    cache:
+      # 指示客户端缓存多久
+      period: 3600
+    chain:
+      cache: true
+      enabled: true
+      compressed: true
+      html-application-cache: true
+    static-locations: classpath:/static/
+  # 配置rabbitmq
+  rabbitmq:
+    host: localhost
+    virtual-host: /cn
+    username: jj
+    password: jinjian
+    port: 5672
+# mybatis
+mybatis:
+  # 自动为包下的类配置别名，名字为首字母去掉大写，无需手动配置别名
+  type-aliases-package: cn.edu.jj.domain
+  configuration:
+    # 数据库中一般使用下划线命名，如user_name,而java中使用驼峰命名，如userName；
+    # mybatis要求变量名和数据库字段名对应，开启这个选项自动将下划线命名转化为驼峰命名
+    map-underscore-to-camel-case: true
+    # 防止一下子从数据库读取大量数据导致OOM
+    default-fetch-size: 100
+    default-statement-timeout: 3000
+  # 指定映射文件路径
+  mapper-locations: classpath:/cn/edu/jj/miaosha/dao/*.xml
+
+
+
